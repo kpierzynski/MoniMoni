@@ -5,6 +5,7 @@ import { StyleSheet, useColorScheme } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Header from './Components/Header';
 import AlertProvider from './Components/Modals/AlertProvider';
+import Accounts from './Components/Screens/Accounts';
 import Home from './Components/Screens/Home';
 import Settings from './Components/Screens/Settings';
 import Transactions from './Components/Screens/Transactions';
@@ -13,6 +14,11 @@ import { StoreProvider } from './store';
 const Tab = createBottomTabNavigator();
 
 const screens = [
+	{
+		name: 'Accounts',
+		component: Accounts,
+		icon: 'card-bulleted-outline',
+	},
 	{
 		name: 'Home',
 		component: Home,
@@ -75,6 +81,7 @@ const App = () => {
 			<NavigationContainer theme={theme}>
 				<AlertProvider>
 					<Tab.Navigator
+						initialRouteName="Home"
 						screenOptions={{
 							header: props => <Header {...props} />,
 							tabBarActiveTintColor: theme.colors.primary,

@@ -35,6 +35,7 @@ const Actions = {
 
 	RemoveCategory: 'RemoveCategory',
 	RemoveTransaction: 'RemoveTransaction',
+	RemoveAccount: 'RemoveAccount',
 
 	EditTransaction: 'EditTransaction',
 	EditCategory: 'EditCategory',
@@ -196,6 +197,32 @@ function reducer(state, action) {
 				},
 			});
 
+			return newState;
+		}
+
+		case Actions.RemoveAccount: {
+			if (state.accounts.length === 1) {
+				throw 'Cannot remove last account.';
+				return state;
+			}
+
+			const { name } = action;
+
+			const indexAcc = state.accounts.map(acc => acc.name).indexOf(name);
+
+			const newState = update(state, {
+				accounts: {
+					$splice: [[indexAcc, 1]],
+				},
+			});
+
+			if (name === state.currentAccount) {
+				return update(newState, {
+					currentAccount: {
+						$set: state.accounts[0].name,
+					},
+				});
+			}
 			return newState;
 		}
 

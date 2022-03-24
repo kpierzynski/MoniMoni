@@ -1,9 +1,10 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useContext } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import useModal from './../Hooks/useModal';
 import _store, { Actions } from './../store';
+import ListItem from './ListItem';
 import TransactionModal from './Modals/TransactionModal';
 
 const TransactionIcon = ({ transaction, onLongPress }) => {
@@ -31,10 +32,7 @@ const TransactionIcon = ({ transaction, onLongPress }) => {
 	}
 
 	return (
-		<TouchableOpacity
-			style={[styles.container, { borderColor: colors.secondaryBackground }]}
-			onPress={handleEditTransaction}
-			onLongPress={onLongPress}>
+		<ListItem onPress={handleEditTransaction} onLongPress={onLongPress}>
 			<Icon style={styles.icon} name={icon} color={color} size={34} />
 
 			<View style={styles.content}>
@@ -53,18 +51,11 @@ const TransactionIcon = ({ transaction, onLongPress }) => {
 					{amount.toFixed(2)} {store.settings.currencySymbol}
 				</Text>
 			</View>
-		</TouchableOpacity>
+		</ListItem>
 	);
 };
 
 const styles = StyleSheet.create({
-	container: {
-		padding: 10,
-		flexDirection: 'row',
-		alignItems: 'center',
-		borderBottomWidth: 1,
-		borderRadius: 64,
-	},
 	content: {
 		padding: 5,
 		flex: 1,

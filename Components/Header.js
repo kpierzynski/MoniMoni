@@ -35,7 +35,8 @@ const Header = () => {
 
 	async function handleAccountChange() {
 		const { action, selectedItem } = await DialogAndroid.showPicker('Select account', '', {
-			neutralText: 'create',
+			neutralText: 'delete',
+			negativeText: 'create',
 
 			items: store.accounts.map(acc => {
 				return { label: acc.name };
@@ -48,6 +49,19 @@ const Header = () => {
 		}
 
 		if (action === DialogAndroid.actionNeutral) {
+			const { action, selectedItem } = await DialogAndroid.showPicker('Select account', '', {
+				items: store.accounts.map(acc => {
+					return { label: acc.name };
+				}),
+			});
+
+			if (selectedItem) {
+				dispatch({ type: Actions.RemoveAccount, name: selectedItem.label });
+				return;
+			}
+		}
+
+		if (action === DialogAndroid.actionNegative) {
 			const { action, text } = await DialogAndroid.prompt('Create new account', 'Type new account name');
 			if (action === DialogAndroid.actionPositive) {
 				dispatch({ type: Actions.NewAccount, name: text.trim() });
