@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import ListItem from './ListItem';
 
-const AccountIcon = ({ account }) => {
+const AccountIcon = ({ account, onPress, onLongPress }) => {
 	const { colors } = useTheme();
 
 	const { total: amount = 0, name, count = 0 } = account;
@@ -12,7 +12,7 @@ const AccountIcon = ({ account }) => {
 	const note = `${count} transactions`;
 
 	return (
-		<ListItem>
+		<ListItem onPress={onPress} onLongPress={onLongPress}>
 			<View style={styles.content}>
 				<View>
 					<Text style={[styles.info.name, { color: colors.textOnBackground }]}>{name}</Text>
